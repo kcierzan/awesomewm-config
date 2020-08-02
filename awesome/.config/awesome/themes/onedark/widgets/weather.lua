@@ -194,7 +194,7 @@ awesome.connect_signal("signals::weather", function(day_data)
       -- update "Today"
       if i == 2 then
         day_name.markup = "Today"
-      -- update "Tomorrow"
+        -- update "Tomorrow"
       elseif i == 3 then
         day_name.markup = "Tomorrow"
       else

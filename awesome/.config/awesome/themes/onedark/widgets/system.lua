@@ -43,8 +43,6 @@ system_menu = wibox {
   end
 }
 
-  local naughty = require("naughty")
-
 system_button:connect_signal("mouse::enter", function()
   system_menu.visible = true
 end)

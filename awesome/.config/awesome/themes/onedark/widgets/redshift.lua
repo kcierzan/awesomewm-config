@@ -34,22 +34,26 @@ redshift.flash_status = function(status)
       redshift.status_popup.visible = true
       redshift.status_bulb.markup = helpers.colorize_text("", beautiful.xcolor1)
       redshift.status_message.markup = helpers.colorize_text("Redshift started", beautiful.xcolor1)
-      gears.timer.new({
+      gears.timer.new(
+         {
             timeout = 1,
             autostart = true,
             single_shot = true,
             callback = function() redshift.status_popup.visible = false end
-         })
+         }
+      )
    elseif status == "off" then
       redshift.status_popup.visible = true
       redshift.status_bulb.markup = helpers.colorize_text("", beautiful.xcolor4)
       redshift.status_message.markup = helpers.colorize_text("Redshift stopped", beautiful.xcolor4)
-      gears.timer.new({
+      gears.timer.new(
+         {
             timeout = 1,
             autostart = true,
             single_shot = true,
             callback = function() redshift.status_popup.visible = false end
-         })
+         }
+      )
    end
 end
 
@@ -87,12 +91,14 @@ redshift.flash_temperature = function(temp)
    }
 
    redshift.temp_popup.visible = true
-   gears.timer.new({
-         timeout = 1,
+   gears.timer.new(
+      {
+         timeout = 1.5,
          autostart = true,
          single_shot = true,
          callback = function() redshift.temp_popup.visible = false end
-      })
+      }
+   )
 end
 
 return redshift

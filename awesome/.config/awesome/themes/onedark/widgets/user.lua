@@ -27,10 +27,11 @@ local user = wibox.widget {
 }
 
 awful.spawn.easy_async_with_shell(
-   "whoami",
-   function(stdout)
-      output = stdout:gsub("%s+", "")
-      whoami.markup = output
-end)
+  "whoami",
+  function(stdout)
+    output = stdout:gsub("%s+", "")
+    whoami.markup = output
+  end
+)
 
 return user

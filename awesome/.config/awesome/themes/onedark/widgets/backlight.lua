@@ -31,7 +31,7 @@ backlight.flash_brightness = function(brightness)
 
    backlight.popup.visible = true
    gears.timer.new({
-         timeout = 1,
+         timeout = 1.5,
          autostart = true,
          single_shot = true,
          callback = function() backlight.popup.visible = false end

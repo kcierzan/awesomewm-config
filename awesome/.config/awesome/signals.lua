@@ -23,11 +23,11 @@ end)
 
 -- hdd
 awful.widget.watch("hdd", hdd_update_interval, function(widget, stdout)
-                     local lines = helpers.split(stdout, ":")
-                     local root = lines[1]
-                     local media = lines[2]
+  local lines = helpers.split(stdout, ":")
+  local root = lines[1]
+  local media = lines[2]
 
-                     awesome.emit_signal("signals::hdd", root, media)
+  awesome.emit_signal("signals::hdd", root, media)
 end)
 
 -- ram
@@ -37,20 +37,20 @@ end)
 
 -- wifi
 awful.widget.watch("wifi", wifi_update_interval, function(widget, stdout)
-                     local lines = helpers.split(stdout, ":")
-                     local network_name = lines[1]
-                     local strength = lines[2]
+  local lines = helpers.split(stdout, ":")
+  local network_name = lines[1]
+  local strength = lines[2]
 
-                     awesome.emit_signal("signals::wifi", network_name, strength)
+  awesome.emit_signal("signals::wifi", network_name, strength)
 end)
 
 -- traffic
 awful.widget.watch("traffic", traffic_update_interval, function(widget, stdout)
-                     local lines = helpers.split(stdout, ":")
-                     local down = lines[1]
-                     local up = lines[2]
+  local lines = helpers.split(stdout, ":")
+  local down = lines[1]
+  local up = lines[2]
 
-                     awesome.emit_signal("signals::traffic", down, up)
+  awesome.emit_signal("signals::traffic", down, up)
 end)
 
 -- last update
@@ -64,11 +64,13 @@ local update_forecast = function()
   local ip_address = helpers.http.get("https://ifconfig.me", true, true)["body"][1]
 
   if not ip_address then
-    naughty.notify({
-      title = "Fetch ip for weather failed",
-      text = "Stopping weather updates",
-      timeout = 0
-    })
+    naughty.notify(
+      {
+        title = "Fetch ip for weather failed",
+        text = "Stopping weather updates",
+        timeout = 0
+      }
+    )
     return false
   end
 
@@ -88,28 +90,37 @@ local update_forecast = function()
   body = helpers.decode(body)
 
   if not body or next(body) == nil then
-    naughty.notify({
-      title = "Fetch weather failed",
-      text = "Stopping weather updates",
-      timeout = 0
-    })
+    naughty.notify(
+      {
+        title = "Fetch weather failed",
+        text = "Stopping weather updates",
+        timeout = 0
+      }
+    )
     return false
   end
+
   -- add the current weather info
-  table.insert(days, {
+  table.insert(
+    days,
+    {
       icon = body["currently"]["icon"],
       temperature = body["currently"]["temperature"],
       summary = body["hourly"]["summary"]
-    })
+    }
+  )
 
   -- add the rest of the forecast data
   for i, day in ipairs(body["daily"]["data"]) do
-    table.insert(days, {
+    table.insert(
+      days,
+      {
         icon = day["icon"],
         summary = day["summary"],
         low = day["temperatureLow"],
         high = day["temperatureHigh"]
-      })
+      }
+    )
   end
   awesome.emit_signal("signals::weather", days)
   return true

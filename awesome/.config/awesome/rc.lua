@@ -129,10 +129,13 @@ mylauncher = awful.widget.launcher(
    }
 )
 
+-- add a systray
+require("themes." .. theme_name .. ".widgets.systray")
+
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
--- add a the wibar bar(s) for the theme
+-- add the wibar bar(s) for the theme
 require("themes." .. theme_name .. ".bar")
 
 -- exit screen
